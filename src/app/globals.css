@@ -1,1 +1,30 @@
 @import "tailwindcss";
+
+/* Kindred Circle - Light Theme */
+:root,
+[data-theme="light"] {
+  --kc-bg: #FCFAF6;
+  --kc-primary: #35213B;
+  --kc-text: #35213B;
+  --kc-muted: #786D7C;
+  --kc-border: rgba(53, 33, 59, 0.12);
+  --kc-hover: #F7E8E4;
+  --kc-accent: #F3B63F;
+
+  color-scheme: light;
+}
+
+/* Kindred Circle - Dark Theme */
+[data-theme="dark"] {
+  --kc-bg: #24182A;
+  --kc-primary: #F7E8E4;
+  --kc-text: #F7E8E4;
+  --kc-muted: #C2B3C5;
+  --kc-border: rgba(247, 232, 228, 0.15);
+  --kc-hover: #35213B;
+  --kc-accent: #F3B63F;
+
+  color-scheme: dark;
+}
+
+

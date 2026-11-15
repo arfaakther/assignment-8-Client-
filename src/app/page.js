@@ -1,5 +1,6 @@
 
 import Link from "next/link";
+import Banner from "./components/banner";
 
 
 const events = [
@@ -26,39 +27,9 @@ const events = [
 export default function Home() {
   return (
     <>
-      
+      <Banner></Banner>
 
-      {/* Hero Section */}
-      <section className="bg-orange-50 py-20 px-6">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
-          <div className="flex-1">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">
-              Together We Can
-              <span className="text-orange-500"> Make A Difference</span>
-            </h1>
-
-            <p className="text-gray-600 mt-5 leading-7">
-              Join our charity events, help people in need, and
-              spread kindness in your community.
-            </p>
-
-            <Link
-              href="#events"
-              className="btn bg-orange-500 text-white border-none hover:bg-orange-600 mt-7"
-            >
-              Explore Events
-            </Link>
-          </div>
-
-          <div className="flex-1">
-            <img
-              src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=900"
-              alt="People helping each other"
-              className="rounded-2xl w-full h-80 object-cover"
-            />
-          </div>
-        </div>
-      </section>
+  
 
       {/* About Section */}
       <section id="about" className="py-16 px-6 text-center">

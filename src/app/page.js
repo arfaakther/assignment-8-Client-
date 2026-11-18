@@ -1,6 +1,7 @@
 
 import Link from "next/link";
 import Banner from "./components/banner";
+import Features from "./components/feature";
 
 
 const events = [
@@ -29,7 +30,7 @@ export default function Home() {
     <>
       <Banner></Banner>
 
-  
+  <Features></Features>
 
       {/* About Section */}
       <section id="about" className="py-16 px-6 text-center">

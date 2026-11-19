@@ -106,23 +106,33 @@ export async function DELETE(req, { params }) {
     const token = await getTokenFromServer();
 
     if (!token) {
-      return Response.json({ message: "Login required" }, { status: 401 });
+      return Response.json(
+        { message: "Login required" },
+        { status: 401 }
+      );
     }
 
     const { id } = await params;
 
-    const res = await fetch(`http://localhost:8000/events/${id}`, {
-      method: "DELETE",
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(
+      `http://localhost:8000/events/${id}/join`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     const data = await res.json();
 
     return Response.json(data, { status: res.status });
   } catch (error) {
     console.error(error);
-    return Response.json({ message: "Delete failed" }, { status: 500 });
+
+    return Response.json(
+      { message: "Failed to leave event" },
+      { status: 500 }
+    );
   }
 }

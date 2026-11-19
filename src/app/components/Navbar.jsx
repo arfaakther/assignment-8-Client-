@@ -144,8 +144,12 @@ const Navbar = () => {
 
                     {/* Profile Dropdown */}
                     {profileOpen && (
+                        
                       <div className="absolute right-0 top-14 w-56 rounded-xl border border-[var(--kc-border)] bg-[var(--kc-bg)] shadow-lg p-2">
-
+ <div className="my-2 border-b block px-4 py-3 rounded-lg text-sm text-[var(--kc-text)] transition border-[var(--kc-border)] ">
+<h1 className="text-bold"> {user?.name}</h1>
+<p> {user?.email}</p>
+</div>
                         <Link
                           href="/create-event"
                           onClick={() => setProfileOpen(false)}
@@ -170,14 +174,7 @@ const Navbar = () => {
                           ♡ Joined Events
                         </Link>
 
-                        <Link
-                          href="/profile"
-                          onClick={() => setProfileOpen(false)}
-                          className="block px-4 py-3 rounded-lg text-sm text-[var(--kc-text)] hover:bg-[var(--kc-hover)] transition"
-                        >
-                          ☻ My Profile
-                        </Link>
-
+                        
                         <div className="my-2 border-t border-[var(--kc-border)]" />
 
                         <button
@@ -293,13 +290,7 @@ const Navbar = () => {
                         ♡ Joined Events
                       </Link>
 
-                      <Link
-                        href="/profile"
-                        onClick={() => setIsOpen(false)}
-                        className="px-4 py-3 rounded-lg text-sm text-[var(--kc-text)] hover:bg-[var(--kc-hover)]"
-                      >
-                        ☻ My Profile
-                      </Link>
+                     
 
                       <button
                         onClick={handleLogout}

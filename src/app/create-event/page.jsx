@@ -3,6 +3,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 const CreateEventPage = () => {
   const [loading, setLoading] = useState(false);
@@ -30,14 +31,14 @@ const CreateEventPage = () => {
       const result = await res.json();
 
       if (res.ok) {
-        alert("Event created successfully!");
+        toast.success("Event created successfully!");
         form.reset();
       } else {
-        alert(result.message || "Failed to create event");
+        toast.error(result.message || "Failed to create event");
       }
     } catch (error) {
       console.error(error);
-      alert("Something went wrong!");
+      toast.error("Something went wrong!");
     } finally {
       setLoading(false);
     }

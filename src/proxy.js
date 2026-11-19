@@ -15,5 +15,5 @@ export async function proxy(request) {
 }
 
 export const config = {
-  matcher: ["/get-data","/add-data"],
+  matcher: ["/events/:id"],
 };

@@ -66,7 +66,7 @@ export default function ManageEventsPage() {
 
       setEvents((prev) => prev.filter((event) => event._id !== id));
 
-      toast.success("Event deleted successfully! 💚");
+      toast.success("Event deleted successfully!");
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong!");

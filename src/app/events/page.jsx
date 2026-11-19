@@ -1,42 +1,25 @@
 
-import Link from "next/link";
-import { getTokenFromServer } from "@/app/lib/getTokenFromServer";
 
+
+import Link from "next/link";
+import EventsClient from "@/app/components/EventsClient";
 
 const EventsPage = async () => {
-  const token = await getTokenFromServer();
+  let events = [];
+  let error = false;
 
-  const res = await fetch("http://localhost:8000/events", {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-    cache: "no-store",
-  });
+  try {
+    const res = await fetch("http://localhost:3000/api/events");
 
-  if (res.status === 401 || res.status === 403) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[var(--kc-bg)] px-6">
-        <h2 className="text-2xl font-bold text-[var(--kc-primary)]">
-          Login Required
-        </h2>
-        <p className="mt-3 text-[var(--kc-muted)]">
-          Please log in to explore upcoming events.
-        </p>
-        <Link
-          href="/login"
-          className="mt-6 rounded-xl bg-[#0D9488] px-6 py-3 font-bold text-white"
-        >
-          Login Now
-        </Link>
-      </div>
-    );
+    if (!res.ok) {
+      throw new Error("Failed to fetch events");
+    }
+
+    events = await res.json();
+  } catch (err) {
+    console.error("Events Fetch Error:", err);
+    error = true;
   }
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch events");
-  }
-
-  const events = await res.json();
 
   return (
     <main className="min-h-screen bg-[var(--kc-bg)] text-[var(--kc-text)]">
@@ -74,75 +57,29 @@ const EventsPage = async () => {
       {/* Events */}
       <section className="px-6 pb-20 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-7xl">
+
           <div className="mb-8">
             <p className="text-sm font-bold uppercase tracking-widest text-[#4D8C83]">
               Explore & Participate
             </p>
+
             <h2 className="mt-2 text-3xl font-extrabold text-[var(--kc-primary)]">
               Discover Upcoming Events
             </h2>
+
             <p className="mt-2 text-sm text-[var(--kc-muted)]">
               {events.length} events found
             </p>
           </div>
 
-          {events.length > 0 ? (
-            <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 xl:grid-cols-3">
-              {events.map((event) => (
-                <article
-                  key={event._id}
-                  className="overflow-hidden rounded-2xl border border-[var(--kc-border)] bg-[var(--kc-bg)] shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
-                >
-                  <div className="relative h-56">
-                    <img
-                      src={event.image}
-                      alt={event.title}
-                      className="h-full w-full object-cover"
-                    />
-
-                    <span className="absolute left-4 top-4 rounded-full bg-white px-4 py-2 text-xs font-bold text-[#0D9488]">
-                      {event.eventType}
-                    </span>
-                  </div>
-
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-[var(--kc-primary)]">
-                      {event.title}
-                    </h3>
-
-                    <p className="mt-3 text-sm text-[var(--kc-muted)]">
-                      📅 {event.date}
-                    </p>
-
-                    <p className="mt-2 text-sm text-[var(--kc-muted)]">
-                      📍 {event.location}
-                    </p>
-
-                    <p className="mt-4 min-h-[72px] text-sm leading-7 text-[var(--kc-muted)]">
-                      {event.description}
-                    </p>
-
-                    <div className="mt-5 border-t border-[var(--kc-border)] pt-4">
-                      <p className="text-sm text-[var(--kc-muted)]">
-                        Organizer: {event.organizerEmail}
-                      </p>
-                    </div>
-
-                    <Link
-                      href={`/events/${event._id}`}
-                      className="mt-5 flex w-full justify-center rounded-xl bg-[#0D9488] px-5 py-3.5 font-bold text-white transition hover:bg-[#4D8C83]"
-                    >
-                      View Event →
-                    </Link>
-                  </div>
-                </article>
-              ))}
-            </div>
-          ) : (
+          {error ? (
             <p className="py-16 text-center text-[var(--kc-muted)]">
-              No events available right now.
+              Unable to load events. Please try again later.
             </p>
+          ) : (
+            <EventsClient events={events} />
           )}
+
         </div>
       </section>
     </main>

@@ -1,6 +1,27 @@
 
 import { getTokenFromServer } from "@/app/lib/getTokenFromServer";
 
+// GET all events (Public)
+export async function GET() {
+  try {
+    const res = await fetch("http://localhost:8000/events", {
+      next: { revalidate: 60 },
+    });
+
+    const data = await res.json();
+
+    return Response.json(data, { status: res.status });
+  } catch (error) {
+    console.error("Fetch events error:", error);
+
+    return Response.json(
+      { message: "Failed to fetch events" },
+      { status: 500 }
+    );
+  }
+}
+
+// CREATE event (Protected)
 export async function POST(req) {
   try {
     const token = await getTokenFromServer();
@@ -35,3 +56,4 @@ export async function POST(req) {
     );
   }
 }
+

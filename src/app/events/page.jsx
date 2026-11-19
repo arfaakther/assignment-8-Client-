@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { getTokenFromServer } from "@/app/lib/getTokenFromServer";
 
+
 const EventsPage = async () => {
   const token = await getTokenFromServer();
 

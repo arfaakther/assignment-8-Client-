@@ -1,6 +1,6 @@
 import { getTokenFromServer } from "@/app/lib/getTokenFromServer";
 
-export async function POST(req) {
+export async function GET() {
   try {
     const token = await getTokenFromServer();
 
@@ -11,24 +11,20 @@ export async function POST(req) {
       );
     }
 
-    const data = await req.json();
-
-    const res = await fetch("http://localhost:8000/events", {
-      method: "POST",
+    const res = await fetch("http://localhost:8000/joined-events", {
       headers: {
-        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(data),
+      cache: "no-store",
     });
 
-    const result = await res.json();
+    const data = await res.json();
 
-    return Response.json(result, { status: res.status });
+    return Response.json(data, { status: res.status });
   } catch (error) {
     console.error(error);
-
     return Response.json(
-      { message: "Failed to create event" },
+      { message: "Failed to fetch joined events" },
       { status: 500 }
     );
   }

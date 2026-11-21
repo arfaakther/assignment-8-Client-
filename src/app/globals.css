@@ -1,30 +1,46 @@
 @import "tailwindcss";
 
-/* Kindred Circle - Light Theme */
+
 :root,
-[data-theme="light"] {
-  --kc-bg: #FCFAF6;
-  --kc-primary: #35213B;
-  --kc-text: #35213B;
-  --kc-muted: #786D7C;
-  --kc-border: rgba(53, 33, 59, 0.12);
-  --kc-hover: #F7E8E4;
-  --kc-accent: #F3B63F;
-
-  color-scheme: light;
+html[data-theme="light"] {
+  --kc-bg: #F8F7F0;
+  --kc-primary: #244C3A;
+  --kc-text: #252B27;
+  --kc-muted: #737D72;
+  --kc-border: rgba(36, 76, 58, 0.14);
+  --kc-hover: #EAF0E4;
+  --kc-accent: #D5E7A1;
+  --kc-panel: #244C3A;
+  --kc-panel-text: #FFFFFF;
 }
 
-/* Kindred Circle - Dark Theme */
-[data-theme="dark"] {
-  --kc-bg: #24182A;
-  --kc-primary: #F7E8E4;
-  --kc-text: #F7E8E4;
-  --kc-muted: #C2B3C5;
-  --kc-border: rgba(247, 232, 228, 0.15);
-  --kc-hover: #35213B;
-  --kc-accent: #F3B63F;
-
-  color-scheme: dark;
+html[data-theme="dark"] {
+  --kc-bg: #202923;
+  --kc-primary: #D5E7A1;
+  --kc-text: #F1F2E9;
+  --kc-muted: #B1BCAF;
+  --kc-border: rgba(213, 231, 161, 0.16);
+  --kc-hover: #2C3A30;
+  --kc-accent: #D5E7A1;
+  --kc-panel: #17251D;
+  --kc-panel-text: #F1F2E9;
 }
 
+html,
+body {
+  min-height: 100%;
+  background-color: var(--kc-bg);
+  color: var(--kc-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+* {
+  transition-property: background-color, border-color, color;
+  transition-duration: 300ms;
+}
+
+html[data-theme="dark"],
+html[data-theme="light"] {
+  color-scheme: inherit;
+}
 

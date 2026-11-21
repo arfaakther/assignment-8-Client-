@@ -113,6 +113,7 @@ export default function ManageEventsPage() {
     }
   };
 
+  // Edit form changes
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -122,228 +123,317 @@ export default function ManageEventsPage() {
     }));
   };
 
+  const inputStyle =
+    "w-full rounded-xl border border-[var(--kc-border)] bg-[var(--kc-hover)] px-4 py-3 text-sm text-[var(--kc-text)] outline-none transition placeholder:text-[var(--kc-muted)] focus:border-[var(--kc-primary)] focus:ring-2 focus:ring-[var(--kc-primary)]/15";
+
+  const labelStyle =
+    "mb-2 block text-sm font-bold text-[var(--kc-text)]";
+
   return (
-    <main
-      className="min-h-screen px-5 py-12"
-      style={{
-        background: "var(--kc-bg)",
-        color: "var(--kc-text)",
-      }}
-    >
+    <main className="min-h-screen bg-[var(--kc-bg)] px-4 py-10 text-[var(--kc-text)] transition-colors duration-300 sm:px-6 lg:px-10">
+
       <div className="mx-auto max-w-7xl">
 
-        {/* Header */}
-        <div className="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
-          <div>
-            <p className="mb-2 font-semibold text-[#4D8C83]">
-              YOUR CONTRIBUTIONS
-            </p>
-
-            <h1 className="text-3xl font-extrabold sm:text-4xl">
-              Manage My Events
-            </h1>
-
-            <p
-              className="mt-3"
-              style={{ color: "var(--kc-muted)" }}
-            >
-              Manage and update the events you've created.
-            </p>
-          </div>
+        {/* PAGE HEADER */}
+        <section className="mb-10">
 
           <Link
-            href="/create-event"
-            className="rounded-xl bg-[#35213B] px-6 py-3 text-center font-semibold text-white transition hover:bg-[#4D8C83]"
+            href="/"
+            className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-[var(--kc-muted)] transition hover:text-[var(--kc-primary)]"
           >
-            + Create New Event
+            ← Back to Home
           </Link>
+
+          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-[var(--kc-primary)]">
+                Your contributions / Dashboard
+              </p>
+
+              <h1 className="mt-4 text-4xl font-black tracking-tight sm:text-5xl">
+                Manage your
+                <span className="font-serif font-normal italic text-[#D77D5B]">
+                  {" "}events.
+                </span>
+              </h1>
+
+              <p className="mt-4 max-w-xl text-sm leading-7 text-[var(--kc-muted)] sm:text-base">
+                Every event is an opportunity to bring people together.
+                Keep your community activities organized and up to date.
+              </p>
+            </div>
+
+            <Link
+              href="/create-event"
+              className="inline-flex items-center justify-center gap-3 self-start rounded-xl bg-[#244C3A] px-6 py-4 font-bold text-white shadow-md transition hover:-translate-y-0.5 hover:bg-[#315E48] md:self-auto"
+            >
+              <span className="text-xl">+</span>
+              Create New Event
+            </Link>
+
+          </div>
+        </section>
+
+        {/* SUMMARY STRIP */}
+        {!loading && (
+          <section className="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+            <div className="flex items-center gap-5 rounded-2xl border border-[var(--kc-border)] bg-[var(--kc-hover)] p-6">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#D5E7A1] text-2xl">
+                📅
+              </div>
+
+              <div>
+                <p className="text-3xl font-black">
+                  {events.length}
+                </p>
+                <p className="mt-1 text-sm text-[var(--kc-muted)]">
+                  Events you've created
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-5 rounded-2xl border border-[var(--kc-border)] bg-[var(--kc-hover)] p-6">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F1D7CA] text-2xl">
+                🌱
+              </div>
+
+              <div>
+                <p className="text-lg font-bold">
+                  Keep growing
+                </p>
+                <p className="mt-1 text-sm text-[var(--kc-muted)]">
+                  Your next community initiative starts here.
+                </p>
+              </div>
+            </div>
+
+          </section>
+        )}
+
+        {/* SECTION HEADING */}
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#D77D5B]">
+              Your activity
+            </p>
+            <h2 className="mt-2 text-2xl font-black">
+              My events
+            </h2>
+          </div>
+
+          {!loading && (
+            <span className="rounded-full border border-[var(--kc-border)] px-4 py-2 text-xs font-bold text-[var(--kc-muted)]">
+              {events.length} {events.length === 1 ? "EVENT" : "EVENTS"}
+            </span>
+          )}
         </div>
 
-        {/* Event count */}
-        {!loading && (
-          <div
-            className="mb-7 inline-flex items-center gap-2 rounded-full px-5 py-2 font-semibold"
-            style={{ background: "var(--kc-hover)" }}
-          >
-            <span>📅</span>
-            {events.length} My Events
-          </div>
-        )}
-
-        {/* Loading */}
+        {/* LOADING */}
         {loading && (
-          <div className="py-20 text-center">
-            <span className="loading loading-spinner loading-lg text-[#4D8C83]"></span>
-            <p className="mt-4">Loading your events...</p>
+          <div className="flex min-h-[300px] flex-col items-center justify-center">
+            <span className="loading loading-spinner loading-lg text-[#244C3A]"></span>
+            <p className="mt-5 text-sm text-[var(--kc-muted)]">
+              Gathering your events...
+            </p>
           </div>
         )}
 
-        {/* No events */}
+        {/* EMPTY STATE */}
         {!loading && events.length === 0 && (
-          <div
-            className="rounded-3xl border p-12 text-center"
-            style={{
-              background: "var(--kc-hover)",
-              borderColor: "var(--kc-border)",
-            }}
-          >
-            <div className="mb-4 text-5xl">🌱</div>
+          <div className="overflow-hidden rounded-[2rem] border border-[var(--kc-border)] bg-[var(--kc-hover)] px-6 py-16 text-center sm:py-20">
 
-            <h2 className="text-2xl font-bold">
-              No events created yet!
+            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[#D5E7A1] text-4xl">
+              🌱
+            </div>
+
+            <p className="mt-7 text-xs font-bold uppercase tracking-[0.25em] text-[var(--kc-primary)]">
+              A fresh beginning
+            </p>
+
+            <h2 className="mt-3 text-3xl font-black">
+              Nothing here just yet.
             </h2>
 
-            <p
-              className="mt-3"
-              style={{ color: "var(--kc-muted)" }}
-            >
-              Start something meaningful in your community.
+            <p className="mx-auto mt-4 max-w-md text-sm leading-7 text-[var(--kc-muted)]">
+              You haven't created an event yet. Start something meaningful
+              and invite your community to be part of it.
             </p>
 
             <Link
               href="/create-event"
-              className="mt-6 inline-block rounded-xl bg-[#35213B] px-6 py-3 font-semibold text-white hover:bg-[#4D8C83]"
+              className="mt-8 inline-flex items-center gap-3 rounded-xl bg-[#244C3A] px-7 py-4 font-bold text-white transition hover:bg-[#315E48]"
             >
-              Create Your First Event
+              Create your first event
+              <span>→</span>
             </Link>
+
           </div>
         )}
 
-        {/* Events */}
+        {/* EVENT GRID */}
         {!loading && events.length > 0 && (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {events.map((event) => (
-              <div
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+
+            {events.map((event, index) => (
+              <article
                 key={event._id}
-                className="overflow-hidden rounded-2xl border shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-                style={{
-                  background: "var(--kc-bg)",
-                  borderColor: "var(--kc-border)",
-                }}
+                className="group overflow-hidden rounded-[1.5rem] border border-[var(--kc-border)] bg-[var(--kc-bg)] transition duration-300 hover:-translate-y-1 hover:shadow-xl"
               >
-                {/* Image */}
-                <div className="h-52 overflow-hidden bg-[#F7E8E4]">
+
+                {/* EVENT IMAGE */}
+                <div className="relative h-56 overflow-hidden bg-[var(--kc-hover)]">
+
                   {event.image ? (
                     <img
                       src={event.image}
                       alt={event.title}
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                     />
                   ) : (
-                    <div className="flex h-full items-center justify-center text-5xl">
+                    <div className="flex h-full items-center justify-center text-6xl">
                       🌿
                     </div>
                   )}
-                </div>
 
-                {/* Content */}
-                <div className="p-5">
-                  <span className="rounded-full bg-[#F7E8E4] px-3 py-1 text-xs font-bold text-[#35213B]">
+                  <div className="absolute left-4 top-4 rounded-full bg-[#F8F7F0] px-4 py-2 text-xs font-bold text-[#244C3A] shadow-sm">
                     {event.eventType || "Community Event"}
-                  </span>
-
-                  <h2 className="mt-4 text-xl font-bold">
-                    {event.title}
-                  </h2>
-
-                  <div
-                    className="mt-4 space-y-2 text-sm"
-                    style={{ color: "var(--kc-muted)" }}
-                  >
-                    <p>📅 {event.date || "Date not specified"}</p>
-                    <p>📍 {event.location || "Location not specified"}</p>
                   </div>
 
-                  <p
-                    className="mt-4 line-clamp-2 text-sm"
-                    style={{ color: "var(--kc-muted)" }}
-                  >
+                  <div className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#244C3A] text-sm font-bold text-white">
+                    {String(index + 1).padStart(2, "0")}
+                  </div>
+
+                </div>
+
+                {/* EVENT CONTENT */}
+                <div className="p-5 sm:p-6">
+
+                  <h3 className="line-clamp-2 min-h-[3.5rem] text-xl font-black leading-snug">
+                    {event.title}
+                  </h3>
+
+                  <div className="mt-5 space-y-3 border-y border-[var(--kc-border)] py-4">
+
+                    <div className="flex items-center gap-3 text-sm">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--kc-hover)]">
+                        📅
+                      </span>
+                      <span className="text-[var(--kc-muted)]">
+                        {event.date || "Date not specified"}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-3 text-sm">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--kc-hover)]">
+                        📍
+                      </span>
+                      <span className="line-clamp-1 text-[var(--kc-muted)]">
+                        {event.location || "Location not specified"}
+                      </span>
+                    </div>
+
+                  </div>
+
+                  <p className="mt-4 line-clamp-2 min-h-10 text-sm leading-6 text-[var(--kc-muted)]">
                     {event.description}
                   </p>
 
-                  {/* Buttons */}
-                  <div className="mt-6 flex gap-3">
+                  {/* ACTIONS */}
+                  <div className="mt-6 grid grid-cols-2 gap-3">
+
                     <button
                       onClick={() => setSelectedEvent({ ...event })}
-                      className="flex-1 rounded-xl bg-[#35213B] px-4 py-3 font-semibold text-white transition hover:bg-[#4D8C83]"
+                      className="flex items-center justify-center gap-2 rounded-xl bg-[#244C3A] px-3 py-3 text-sm font-bold text-white transition hover:bg-[#315E48]"
                     >
-                      ✏️ Edit
+                      <span>✎</span>
+                      Edit
                     </button>
 
                     <button
                       onClick={() => handleDelete(event._id)}
                       disabled={deleting === event._id}
-                      className="flex-1 rounded-xl border border-red-300 px-4 py-3 font-semibold text-red-500 transition hover:bg-red-500 hover:text-white disabled:opacity-50"
+                      className="flex items-center justify-center gap-2 rounded-xl border border-red-400/40 px-3 py-3 text-sm font-bold text-red-500 transition hover:bg-red-500 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                      {deleting === event._id
-                        ? "Deleting..."
-                        : "🗑️ Delete"}
+                      <span>⌫</span>
+                      {deleting === event._id ? "Deleting..." : "Delete"}
                     </button>
+
                   </div>
+
                 </div>
-              </div>
+              </article>
             ))}
+
           </div>
         )}
+
       </div>
 
-      {/* Edit Modal */}
+      {/* EDIT MODAL */}
       {selectedEvent && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/60 p-4">
-          <div
-            className="my-auto max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-3xl p-6 shadow-2xl sm:p-8"
-            style={{ background: "var(--kc-bg)" }}
-          >
-            <div className="mb-6 flex items-center justify-between">
-              <h2 className="text-2xl font-bold">
-                Edit Your Event ✏️
-              </h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/60 p-3 backdrop-blur-sm sm:p-6">
+
+          <div className="my-auto max-h-[92vh] w-full max-w-xl overflow-y-auto rounded-[2rem] border border-[var(--kc-border)] bg-[var(--kc-bg)] p-6 text-[var(--kc-text)] shadow-2xl sm:p-9">
+
+            {/* MODAL HEADER */}
+            <div className="mb-8 flex items-start justify-between gap-4">
+
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#D77D5B]">
+                  Your contribution
+                </p>
+
+                <h2 className="mt-2 text-2xl font-black sm:text-3xl">
+                  Edit your event<span className="text-[#D77D5B]">.</span>
+                </h2>
+
+                <p className="mt-2 text-sm text-[var(--kc-muted)]">
+                  Make changes to your event details.
+                </p>
+              </div>
 
               <button
+                type="button"
                 onClick={() => setSelectedEvent(null)}
-                className="text-2xl"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--kc-hover)] text-2xl transition hover:bg-[var(--kc-border)]"
                 aria-label="Close edit form"
               >
                 ×
               </button>
+
             </div>
 
-            <form onSubmit={handleUpdate} className="space-y-4">
+            {/* EDIT FORM */}
+            <form onSubmit={handleUpdate} className="space-y-5">
 
               <div>
-                <label className="mb-2 block font-semibold">
+                <label className={labelStyle}>
                   Event Title
                 </label>
+
                 <input
                   type="text"
                   name="title"
                   value={selectedEvent.title || ""}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-xl border p-3 outline-none"
-                  style={{
-                    background: "var(--kc-bg)",
-                    borderColor: "var(--kc-border)",
-                    color: "var(--kc-text)",
-                  }}
+                  className={inputStyle}
                 />
               </div>
 
               <div>
-                <label className="mb-2 block font-semibold">
+                <label className={labelStyle}>
                   Event Type
                 </label>
+
                 <select
                   name="eventType"
                   value={selectedEvent.eventType || ""}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-xl border p-3 outline-none"
-                  style={{
-                    background: "var(--kc-bg)",
-                    borderColor: "var(--kc-border)",
-                    color: "var(--kc-text)",
-                  }}
+                  className={inputStyle}
                 >
                   <option value="">Select Event Type</option>
                   <option value="Donation">Donation</option>
@@ -357,86 +447,71 @@ export default function ManageEventsPage() {
               </div>
 
               <div>
-                <label className="mb-2 block font-semibold">
-                  Date
+                <label className={labelStyle}>
+                  Event Date
                 </label>
+
                 <input
                   type="date"
                   name="date"
                   value={selectedEvent.date || ""}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-xl border p-3 outline-none"
-                  style={{
-                    background: "var(--kc-bg)",
-                    borderColor: "var(--kc-border)",
-                    color: "var(--kc-text)",
-                  }}
+                  className={inputStyle}
                 />
               </div>
 
               <div>
-                <label className="mb-2 block font-semibold">
+                <label className={labelStyle}>
                   Location
                 </label>
+
                 <input
                   type="text"
                   name="location"
                   value={selectedEvent.location || ""}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-xl border p-3 outline-none"
-                  style={{
-                    background: "var(--kc-bg)",
-                    borderColor: "var(--kc-border)",
-                    color: "var(--kc-text)",
-                  }}
+                  className={inputStyle}
                 />
               </div>
 
               <div>
-                <label className="mb-2 block font-semibold">
+                <label className={labelStyle}>
                   Image URL
                 </label>
+
                 <input
                   type="url"
                   name="image"
                   value={selectedEvent.image || ""}
                   onChange={handleChange}
-                  className="w-full rounded-xl border p-3 outline-none"
-                  style={{
-                    background: "var(--kc-bg)",
-                    borderColor: "var(--kc-border)",
-                    color: "var(--kc-text)",
-                  }}
+                  className={inputStyle}
                 />
               </div>
 
               <div>
-                <label className="mb-2 block font-semibold">
+                <label className={labelStyle}>
                   Description
                 </label>
+
                 <textarea
                   name="description"
                   value={selectedEvent.description || ""}
                   onChange={handleChange}
                   required
                   rows={4}
-                  className="w-full rounded-xl border p-3 outline-none"
-                  style={{
-                    background: "var(--kc-bg)",
-                    borderColor: "var(--kc-border)",
-                    color: "var(--kc-text)",
-                  }}
+                  className={`${inputStyle} resize-y leading-7`}
                 />
               </div>
 
-              <div className="flex flex-col gap-3 pt-3 sm:flex-row">
+              {/* MODAL ACTIONS */}
+              <div className="flex flex-col gap-3 border-t border-[var(--kc-border)] pt-6 sm:flex-row">
+
                 <button
                   type="button"
                   onClick={() => setSelectedEvent(null)}
-                  className="flex-1 rounded-xl border px-5 py-3 font-semibold"
-                  style={{ borderColor: "var(--kc-border)" }}
+                  className="flex-1 rounded-xl border border-[var(--kc-border)] px-5 py-3.5 font-bold transition hover:bg-[var(--kc-hover)]"
                 >
                   Cancel
                 </button>
@@ -444,15 +519,18 @@ export default function ManageEventsPage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="flex-1 rounded-xl bg-[#35213B] px-5 py-3 font-semibold text-white transition hover:bg-[#4D8C83] disabled:opacity-50"
+                  className="flex-1 rounded-xl bg-[#244C3A] px-5 py-3.5 font-bold text-white transition hover:bg-[#315E48] disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  {saving ? "Saving..." : "Save Changes"}
+                  {saving ? "Saving Changes..." : "Save Changes →"}
                 </button>
+
               </div>
+
             </form>
           </div>
         </div>
       )}
+
     </main>
   );
 }

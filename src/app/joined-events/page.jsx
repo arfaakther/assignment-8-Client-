@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -30,101 +31,203 @@ const JoinedEventsPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[var(--kc-bg)] text-[var(--kc-primary)]">
-        Loading your joined events...
+      <div
+        className="flex min-h-screen items-center justify-center"
+        style={{
+          backgroundColor: "var(--kc-bg)",
+          color: "var(--kc-primary)",
+        }}
+      >
+        <div className="text-center">
+          <div
+            className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-4 border-[var(--kc-border)] border-t-[var(--kc-primary)]"
+          />
+          <p className="font-medium">Loading your community journey...</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[var(--kc-bg)] px-4 py-12 sm:px-6">
+    <main
+      className="min-h-screen px-4 py-12 sm:px-6 lg:px-8"
+      style={{
+        backgroundColor: "var(--kc-bg)",
+        color: "var(--kc-text)",
+      }}
+    >
       <div className="mx-auto max-w-6xl">
 
-        <div className="mb-10">
-          <span className="text-sm font-bold uppercase tracking-wider text-[#4D8C83]">
-            Your Community Journey
-          </span>
+        {/* Page Heading */}
+        <section className="relative mb-12 overflow-hidden rounded-[2rem] bg-[var(--kc-panel)] px-6 py-10 text-[var(--kc-panel-text)] sm:px-10 sm:py-14">
+          <div className="relative z-10 max-w-2xl">
+            <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#D5E7A1]">
+              Your Community Journey
+            </span>
 
-          <h1 className="mt-3 text-3xl font-extrabold text-[var(--kc-primary)] sm:text-4xl">
-            My Joined Events
-          </h1>
+            <h1 className="mt-5 text-4xl font-black leading-tight sm:text-5xl lg:text-6xl">
+              Good things happen when we show up.
+            </h1>
 
-          <p className="mt-3 text-[var(--kc-muted)]">
-            Events you've joined and the difference you're helping make.
-          </p>
-        </div>
+            <p className="mt-5 max-w-lg text-sm leading-7 opacity-75 sm:text-base">
+              Every event you join is a little step toward a stronger,
+              kinder community. Here's where your journey is taking you.
+            </p>
 
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <span className="rounded-full bg-[#D5E7A1] px-5 py-2 text-sm font-bold text-[#244C3A]">
+                {events.length} {events.length === 1 ? "Event" : "Events"} Joined
+              </span>
+
+              <Link
+                href="/events"
+                className="rounded-full border border-white/30 px-5 py-2 text-sm font-bold text-white transition hover:bg-white/10"
+              >
+                Discover More Events →
+              </Link>
+            </div>
+          </div>
+
+          <div className="pointer-events-none absolute -right-10 -top-16 hidden h-72 w-72 rounded-full border border-white/10 sm:block" />
+          <div className="pointer-events-none absolute -right-2 -top-8 hidden h-56 w-56 rounded-full border border-white/10 sm:block" />
+          <div className="pointer-events-none absolute -bottom-24 right-28 hidden h-48 w-48 rounded-full bg-[#D5E7A1]/10 blur-2xl sm:block" />
+        </section>
+
+        {/* Empty State */}
         {events.length === 0 ? (
-          <div className="rounded-3xl border border-[var(--kc-border)] bg-[var(--kc-hover)] px-6 py-16 text-center">
-            <div className="mb-5 text-5xl">🤝</div>
+          <section
+            className="rounded-[2rem] border px-6 py-20 text-center"
+            style={{
+              borderColor: "var(--kc-border)",
+              backgroundColor: "var(--kc-hover)",
+            }}
+          >
+            <div className="mb-6 text-6xl">🌱</div>
 
-            <h2 className="text-2xl font-bold text-[var(--kc-primary)]">
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--kc-muted)]">
+              Your journey starts here
+            </span>
+
+            <h2 className="mt-4 text-2xl font-black text-[var(--kc-primary)] sm:text-3xl">
               No Joined Events Yet
             </h2>
 
-            <p className="mx-auto mt-3 max-w-md text-[var(--kc-muted)]">
-              You haven't joined any community events yet. Explore upcoming events and become part of something meaningful!
+            <p className="mx-auto mt-4 max-w-md text-sm leading-7 text-[var(--kc-muted)]">
+              You haven't joined any community events yet. Find something
+              meaningful, meet new people, and make a difference together.
             </p>
 
             <Link
               href="/events"
-              className="mt-7 inline-flex rounded-xl bg-[#0D9488] px-7 py-3 font-bold text-white transition hover:bg-[#4D8C83]"
+              className="mt-8 inline-flex items-center rounded-full bg-[var(--kc-primary)] px-7 py-3 font-bold text-[var(--kc-bg)] transition hover:opacity-80"
             >
               Explore Events →
             </Link>
-          </div>
+          </section>
         ) : (
           <>
-            <p className="mb-6 font-semibold text-[var(--kc-muted)]">
-              {events.length} event(s) joined
-            </p>
+            {/* Events Section Heading */}
+            <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--kc-muted)]">
+                  Your Contributions
+                </span>
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {events.map((event) => (
-                <div
+                <h2 className="mt-2 text-2xl font-black text-[var(--kc-primary)] sm:text-3xl">
+                  Events You're Part Of
+                </h2>
+              </div>
+
+              <p className="text-sm font-medium text-[var(--kc-muted)]">
+                Showing {events.length} joined{" "}
+                {events.length === 1 ? "event" : "events"}
+              </p>
+            </div>
+
+            {/* Events Grid */}
+            <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
+              {events.map((event, index) => (
+                <article
                   key={event._id}
-                  className="overflow-hidden rounded-2xl border border-[var(--kc-border)] bg-[var(--kc-bg)] shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                  className="group overflow-hidden rounded-[1.5rem] border transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  style={{
+                    borderColor: "var(--kc-border)",
+                    backgroundColor: "var(--kc-bg)",
+                  }}
                 >
-                  <img
-                    src={event.image}
-                    alt={event.title}
-                    className="h-52 w-full object-cover"
-                  />
+                  {/* Event Image */}
+                  <div className="relative h-56 overflow-hidden">
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                    />
 
-                  <div className="p-5">
-                    <span className="inline-block rounded-full bg-[#4D8C83]/10 px-3 py-1 text-xs font-bold text-[#4D8C83]">
-                      {event.eventType}
-                    </span>
-
-                    <h2 className="mt-3 text-xl font-bold text-[var(--kc-primary)]">
-                      {event.title}
-                    </h2>
-
-                    <div className="mt-4 space-y-2 text-sm text-[var(--kc-muted)]">
-                      <p>📅 {event.date}</p>
-                      <p>📍 {event.location}</p>
+                    <div className="absolute left-4 top-4">
+                      <span className="rounded-full bg-[#F8F7F0] px-4 py-2 text-xs font-bold text-[#244C3A] shadow-sm">
+                        {event.eventType}
+                      </span>
                     </div>
 
-                    <div className="mt-5 flex items-center justify-between gap-3">
-                      <Link
-                        href={`/events/${event._id}`}
-                        className="rounded-lg bg-[#0D9488] px-4 py-2 text-sm font-bold text-white transition hover:bg-[#4D8C83]"
-                      >
-                        View Details
-                      </Link>
-
-                      <span className="text-sm font-bold text-[#4D8C83]">
+                    <div className="absolute bottom-4 right-4">
+                      <span className="rounded-full bg-[#244C3A] px-3 py-1.5 text-xs font-bold text-[#D5E7A1]">
                         ✓ Joined
                       </span>
                     </div>
                   </div>
-                </div>
+
+                  {/* Event Content */}
+                  <div className="p-6">
+                    <div className="mb-3 flex items-center justify-between">
+                      <span className="text-xs font-bold uppercase tracking-widest text-[var(--kc-muted)]">
+                        Community Event
+                      </span>
+
+                      <span className="text-xs font-bold text-[var(--kc-muted)]">
+                        #{String(index + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+
+                    <h3 className="text-xl font-black leading-snug text-[var(--kc-primary)] transition group-hover:opacity-75">
+                      {event.title}
+                    </h3>
+
+                    <div
+                      className="my-5 space-y-3 border-y py-4 text-sm"
+                      style={{ borderColor: "var(--kc-border)" }}
+                    >
+                      <p className="flex items-center gap-3 text-[var(--kc-muted)]">
+                        <span className="text-lg">📅</span>
+                        {event.date}
+                      </p>
+
+                      <p className="flex items-center gap-3 text-[var(--kc-muted)]">
+                        <span className="text-lg">📍</span>
+                        {event.location}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center justify-between gap-3">
+                      <Link
+                        href={`/events/${event._id}`}
+                        className="inline-flex items-center gap-2 rounded-full bg-[var(--kc-primary)] px-5 py-2.5 text-sm font-bold text-[var(--kc-bg)] transition hover:opacity-80"
+                      >
+                        View Details
+                        <span>↗</span>
+                      </Link>
+
+                      <span className="text-xs font-bold text-[var(--kc-muted)]">
+                        Part of something good
+                      </span>
+                    </div>
+                  </div>
+                </article>
               ))}
             </div>
           </>
         )}
       </div>
-    </div>
+    </main>
   );
 };
 

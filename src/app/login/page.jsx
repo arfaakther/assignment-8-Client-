@@ -7,12 +7,14 @@ import { useRouter } from "next/navigation";
 import { authClient } from "../lib/auth-client";
 import GoogleAuthButton from "@/app/components/GoogleAuthButton";
 
+
 const LoginPage = () => {
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -114,7 +116,7 @@ const LoginPage = () => {
           {/* Bottom */}
           <div className="relative z-10 flex items-center justify-between border-t border-white/15 pt-6">
             <p className="text-xs text-white/50">
-              © {new Date().getFullYear()} Kindred Circle
+              © 2026 Kindred Circle
             </p>
 
             <span className="text-sm text-[#D5E7A1]">✳ Together is better</span>

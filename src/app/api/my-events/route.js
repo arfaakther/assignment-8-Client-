@@ -12,7 +12,7 @@ export async function GET() {
       );
     }
 
-    const res = await fetch("http://localhost:8000/my-events", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/my-events`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${token}`,

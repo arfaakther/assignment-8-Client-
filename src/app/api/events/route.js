@@ -4,7 +4,7 @@ import { getTokenFromServer } from "@/app/lib/getTokenFromServer";
 // GET all events (Public)
 export async function GET() {
   try {
-    const res = await fetch("http://localhost:8000/events", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/events`, {
       next: { revalidate: 60 },
     });
 
@@ -35,7 +35,7 @@ export async function POST(req) {
 
     const body = await req.json();
 
-    const res = await fetch("http://localhost:8000/events", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/events`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

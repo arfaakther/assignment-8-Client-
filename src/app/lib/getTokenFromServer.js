@@ -1,11 +1,17 @@
 import { headers } from "next/headers";
-import { auth } from "./auth";
+import { auth } from "@/app/lib/auth";
 
 export const getTokenFromServer = async () => {
-  const jwtToken = await auth.api.getToken({
-    headers: await headers(),
-  });
-  const token = jwtToken?.token;
-  
-  return token;
+  try {
+    const jwtToken = await auth.api.getToken({
+      headers: await headers(),
+    });
+
+    console.log("JWT Token exists:", !!jwtToken?.token);
+
+    return jwtToken?.token;
+  } catch (error) {
+    console.error("JWT Token Error:", error);
+    return null;
+  }
 };

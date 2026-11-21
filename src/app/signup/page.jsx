@@ -135,7 +135,7 @@ const SignUpPage = () => {
           </div>
 
           <p className="relative z-10 text-xs text-white/40">
-            © {new Date().getFullYear()} Kindred Circle
+            © 2026 Kindred Circle
           </p>
         </section>
 

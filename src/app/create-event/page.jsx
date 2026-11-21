@@ -6,11 +6,13 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/app/lib/auth-client";
+import useToday from "@/app/hooks/useToday";
 
 const CreateEventPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { data: session } = authClient.useSession();
+  const today = useToday();
 
 const organizerEmail = session?.user?.email || "";
   
@@ -261,7 +263,7 @@ const organizerEmail = session?.user?.email || "";
                       type="date"
                       name="date"
                       required
-                      min={new Date().toISOString().split("T")[0]}
+                      min={today}
                       className={inputStyle}
                     />
 

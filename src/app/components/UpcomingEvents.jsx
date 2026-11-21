@@ -6,7 +6,7 @@ const UpcomingEvents = async () => {
   let error = false;
 
   try {
-    const res = await fetch("http://localhost:8000/upcoming-events", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/upcoming-events`, {
       next: { revalidate: 60 },
     });
 

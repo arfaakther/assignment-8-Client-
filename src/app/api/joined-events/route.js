@@ -11,7 +11,7 @@ export async function GET() {
       );
     }
 
-    const res = await fetch("http://localhost:8000/joined-events", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/joined-events`, {
       headers: {
         authorization: `Bearer ${token}`,
       },

@@ -1,13 +1,18 @@
-
 import Link from "next/link";
 import EventsClient from "@/app/components/EventsClient";
+import { connection } from "next/server";
 
+
+
+export const instant = false;
 const EventsPage = async () => {
+   await connection();
+
   let events = [];
   let error = false;
 
   try {
-    const res = await fetch("http://localhost:3000/api/events", {
+    const res = await fetch("https://kindred-circle-frontend.vercel.app/api/events", {
       cache: "no-store",
     });
 

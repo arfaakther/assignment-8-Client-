@@ -14,7 +14,7 @@ export async function GET(req, { params }) {
     const { id } = await params;
 
     const res = await fetch(
-      `http://localhost:8000/events/${id}/join`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/events/${id}/join`,
       {
         headers: {
           authorization: `Bearer ${token}`,
@@ -49,7 +49,7 @@ export async function POST(req, { params }) {
     const { id } = await params;
 
     const res = await fetch(
-      `http://localhost:8000/events/${id}/join`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/events/${id}/join`,
       {
         method: "POST",
         headers: {
@@ -83,7 +83,7 @@ export async function PATCH(req, { params }) {
     const { id } = await params;
     const body = await req.json();
 
-    const res = await fetch(`http://localhost:8000/events/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/events/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -115,7 +115,7 @@ export async function DELETE(req, { params }) {
     const { id } = await params;
 
     const res = await fetch(
-      `http://localhost:8000/events/${id}/join`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/events/${id}/join`,
       {
         method: "DELETE",
         headers: {

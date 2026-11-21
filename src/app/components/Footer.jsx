@@ -104,7 +104,7 @@ const Footer = () => {
         {/* Bottom section */}
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <p className="text-center text-xs text-[var(--kc-muted)] sm:text-left">
-            © {new Date().getFullYear()}{" "}
+            © 2026{" "}
             <span className="font-bold text-[var(--kc-primary)]">
               Kindred Circle
             </span>

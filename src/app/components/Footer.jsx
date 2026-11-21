@@ -89,12 +89,7 @@ const Footer = () => {
                   Sign Up
                 </Link>
               </li>
-              <li>
-                <Link href="/profile" className="transition hover:pl-1 hover:text-[var(--kc-primary)]">
-                  My Profile
-                </Link>
-              </li>
-              <li>
+             <li>
                 <Link href="/manage-events" className="transition hover:pl-1 hover:text-[var(--kc-primary)]">
                   Manage Events
                 </Link>

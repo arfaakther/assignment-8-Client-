@@ -4,9 +4,16 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import { authClient } from "@/app/lib/auth-client";
 
 const CreateEventPage = () => {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const { data: session } = authClient.useSession();
+
+const organizerEmail = session?.user?.email || "";
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,6 +40,7 @@ const CreateEventPage = () => {
       if (res.ok) {
         toast.success("Event created successfully!");
         form.reset();
+        router.push("/events");
       } else {
         toast.error(result.message || "Failed to create event");
       }
@@ -112,45 +120,41 @@ const CreateEventPage = () => {
                 </p>
 
                 {/* Steps */}
-                <div className="mt-12 space-y-6">
+                
+<div className="mt-12">
+  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#D5E7A1]">
+    The power of coming together
+  </p>
 
-                  <div className="flex items-center gap-4">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#D5E7A1] text-sm font-black text-[#244C3A]">
-                      01
-                    </span>
-                    <div>
-                      <p className="font-bold">Share your idea</p>
-                      <p className="mt-1 text-xs text-white/55">
-                        Give your event a name and purpose.
-                      </p>
-                    </div>
-                  </div>
+  <h3 className="mt-4 text-2xl font-bold leading-snug">
+    One community.
+    <span className="block font-serif italic font-normal text-[#D5E7A1]">
+      Countless possibilities.
+    </span>
+  </h3>
 
-                  <div className="flex items-center gap-4">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/30 text-sm font-bold">
-                      02
-                    </span>
-                    <div>
-                      <p className="font-bold">Set the details</p>
-                      <p className="mt-1 text-xs text-white/55">
-                        Choose a date, location, and category.
-                      </p>
-                    </div>
-                  </div>
+  <div className="mt-8 grid grid-cols-2 gap-3">
+    <div className="rounded-2xl border border-white/15 bg-white/5 p-5">
+      <span className="text-3xl">🤝</span>
+      <p className="mt-4 text-sm font-bold">Shared purpose</p>
+      <p className="mt-1 text-xs leading-5 text-white/55">
+        Connect with people who care about the same causes.
+      </p>
+    </div>
 
-                  <div className="flex items-center gap-4">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/30 text-sm font-bold">
-                      03
-                    </span>
-                    <div>
-                      <p className="font-bold">Bring people together</p>
-                      <p className="mt-1 text-xs text-white/55">
-                        Publish your event and welcome volunteers.
-                      </p>
-                    </div>
-                  </div>
+    <div className="rounded-2xl border border-white/15 bg-white/5 p-5">
+      <span className="text-3xl">🌱</span>
+      <p className="mt-4 text-sm font-bold">Real impact</p>
+      <p className="mt-1 text-xs leading-5 text-white/55">
+        Turn small acts of kindness into meaningful change.
+      </p>
+    </div>
+  </div>
 
-                </div>
+  <p className="mt-6 text-sm italic leading-7 text-white/65">
+    "Alone we can do so little; together we can do so much."
+  </p>
+</div>
               </div>
 
               <div className="border-t border-white/20 pt-6">
@@ -357,40 +361,40 @@ const CreateEventPage = () => {
 
               </div>
 
-              {/* SECTION 04 */}
-              <div>
+             
+{/* SECTION 04 */}
+<div>
+  <div className="mb-6 flex items-center gap-3">
+    <span className="text-xs font-black tracking-widest text-[#D77D5B]">
+      04
+    </span>
+    <h3 className="text-lg font-bold">
+      Organizer information
+    </h3>
+  </div>
 
-                <div className="mb-6 flex items-center gap-3">
-                  <span className="text-xs font-black tracking-widest text-[#D77D5B]">
-                    04
-                  </span>
-                  <h3 className="text-lg font-bold">
-                    Organizer information
-                  </h3>
-                </div>
+  <div className="rounded-2xl border border-[var(--kc-border)] bg-[var(--kc-hover)] p-5">
+    <div className="flex flex-wrap items-center justify-between gap-2">
+      <label className="text-sm font-bold text-[var(--kc-text)]">
+        Organizer Email
+      </label>
 
-                <div className="rounded-2xl border border-[var(--kc-border)] bg-[var(--kc-hover)] p-5">
+      <span className="text-sm font-semibold break-all text-[var(--kc-primary)]">
+        {organizerEmail || "Loading your email..."}
+      </span>
+    </div>
 
-                  <label className={labelStyle}>
-                    Organizer Email <span className="text-red-500">*</span>
-                  </label>
+    <input
+      type="hidden"
+      name="organizerEmail"
+      value={organizerEmail}
+    />
 
-                  <input
-                    type="email"
-                    name="organizerEmail"
-                    required
-                    placeholder="Enter organizer email"
-                    className="w-full rounded-xl border border-[var(--kc-border)] bg-[var(--kc-bg)] px-4 py-3.5 text-sm text-[var(--kc-text)] outline-none transition placeholder:text-[var(--kc-muted)] focus:border-[var(--kc-primary)] focus:ring-2 focus:ring-[var(--kc-primary)]/15"
-                  />
-
-                  <p className="mt-3 text-xs leading-5 text-[var(--kc-muted)]">
-                    Participants can use this email to contact the event organizer.
-                  </p>
-
-                </div>
-
-              </div>
-
+    <p className="mt-3 text-xs leading-5 text-[var(--kc-muted)]">
+      Your account email will automatically be used as the event organizer's contact email.
+    </p>
+  </div>
+</div>
               {/* Submit */}
               <div className="pt-2">
 
